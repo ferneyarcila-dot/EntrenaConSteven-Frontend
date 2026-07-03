@@ -1,6 +1,10 @@
+import { useState } from "react";
 import "./App.css";
+import FormularioRegistro from "./FormularioRegistro";
+import FormularioLogin from "./FormularioLogin";
 
 function App() {
+  const [pantalla, setPantalla] = useState("");
   return (
     <div>
 
@@ -23,9 +27,20 @@ function App() {
           Tu plataforma para aprender a entrenar desde cualquier lugar.
         </p>
 
-        <button>VER VIDEOS</button>
+        <div className="hero-botones">
+      <button>VER VIDEOS</button>
+      <button onClick={() => setPantalla("registro")}>
+        REGISTRARSE
+      </button>
+      <button onClick={() => setPantalla("login")}>
+        INICIAR SESIÓN
+      </button>
+      </div>
 
       </header>
+     {pantalla === "registro" && <FormularioRegistro />}
+
+      {pantalla === "login" && <FormularioLogin />}
 
       <section className="videos">
 

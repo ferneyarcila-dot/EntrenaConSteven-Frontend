@@ -1,0 +1,25 @@
+{
+  "usuarios": [
+    {
+      "id": "1",
+      "nombre": "Administrador",
+      "correo": "admin@entrenaconsteven.com",
+      "password": "123456"
+    },
+    {
+      "nombre": "Ferney Alexander",
+      "usuario": "Arcila Graciano",
+      "correo": "ferney.arcila@gmail.com",
+      "password": "123456",
+      "id": "6WXKo0X3adU"
+    },
+    {
+      "nombre": "Alex",
+      "usuario": "Arcila ",
+      "correo": "iam.ale.arcila@gmail.com",
+      "password": "123456",
+      "id": "59LVisoFH_8"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
