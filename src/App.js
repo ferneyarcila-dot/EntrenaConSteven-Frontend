@@ -1,10 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import FormularioRegistro from "./FormularioRegistro";
 import FormularioLogin from "./FormularioLogin";
 
 function App() {
   const [pantalla, setPantalla] = useState("");
+  const [videos, setVideos] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:8080/videos")
+      .then((respuesta) => respuesta.json())
+      .then((datos) => setVideos(datos))
+      .catch((error) => console.error("Error al cargar videos:", error));
+  }, []);
+
   return (
     <div>
 
@@ -28,17 +37,20 @@ function App() {
         </p>
 
         <div className="hero-botones">
-      <button>VER VIDEOS</button>
-      <button onClick={() => setPantalla("registro")}>
-        REGISTRARSE
-      </button>
-      <button onClick={() => setPantalla("login")}>
-        INICIAR SESIÓN
-      </button>
-      </div>
+          <button>VER VIDEOS</button>
+
+          <button onClick={() => setPantalla("registro")}>
+            REGISTRARSE
+          </button>
+
+          <button onClick={() => setPantalla("login")}>
+            INICIAR SESIÓN
+          </button>
+        </div>
 
       </header>
-     {pantalla === "registro" && <FormularioRegistro />}
+
+      {pantalla === "registro" && <FormularioRegistro />}
 
       {pantalla === "login" && <FormularioLogin />}
 
@@ -48,32 +60,25 @@ function App() {
 
         <div className="cards">
 
-          <div className="card">
-            <h3>Como Empezar en el Gym</h3>
-            <p>Rutina completa para principiantes.</p>
-            <button>Ver Video</button>
-          </div>
+          {videos.map((video) => (
+            <div className="card" key={video.id}>
+              <h3>{video.titulo}</h3>
+              <p>{video.descripcion}</p>
+              <p>Nivel: {video.nivel}</p>
+              <p>Duración: {video.duracion} minutos</p>
 
-          <div className="card">
-            <h3>Mi Rutina de 3 Días</h3>
-            <p>Entrenamiento básico para comenzar.</p>
-            <button>Ver Video</button>
-          </div>
-
-          <div className="card">
-            <h3>Evita Lesiones</h3>
-            <p>Calentamiento para principiantes.</p>
-            <button>Ver Video</button>
-          </div>
+              <button onClick={() => window.open(video.url, "_blank")}>
+                Ver Video
+              </button>
+            </div>
+          ))}
 
         </div>
 
       </section>
 
       <footer>
-
         © 2026 EntrenaConSteven
-
       </footer>
 
     </div>
